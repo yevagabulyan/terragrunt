@@ -6,4 +6,10 @@ variable "bucket_name" {
 variable "environment" {
   description = "The environment for the S3 bucket"
   type        = string
+  default = "news3bucketenv"
+}
+
+variable "region" {
+  type    = string
+  default = "us-west-1"
 }

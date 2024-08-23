@@ -2,17 +2,31 @@ provider "aws" {
   region = "us-west-1"
 }
 
-resource "aws_s3_bucket" "myterragruntbucket" {
-  bucket = var.bucket_name
-  acl    = "private"
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+}
+
+resource "aws_s3_bucket" "mybucket" {
+  bucket = "${var.environment}-${region}"
+  #acl    = "private"
 
   tags = {
     Environment = var.environment
   }
 }
 
-resource "aws_s3_bucket_versioning" "myterragruntbucket" {
-  bucket = aws_s3_bucket.myterragruntbucket.id
+resource "aws_s3_bucket_acl" "mybucket_acl" {
+  bucket = aws_s3_bucket.mybucket.id
+  acl    = "private"
+}
+
+resource "aws_s3_bucket_versioning" "mybucket" {
+  bucket = aws_s3_bucket.mybucket.id
 
   versioning_configuration {
     status = "Enabled"
