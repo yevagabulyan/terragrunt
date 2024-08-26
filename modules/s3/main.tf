@@ -12,7 +12,7 @@ terraform {
 }
 
 resource "aws_s3_bucket" "mybucket" {
-  bucket = "${var.environment}-${region}"
+  bucket = "${var.environment}-${var.region}"
   #acl    = "private"
 
   tags = {
@@ -20,10 +20,10 @@ resource "aws_s3_bucket" "mybucket" {
   }
 }
 
-resource "aws_s3_bucket_acl" "mybucket_acl" {
-  bucket = aws_s3_bucket.mybucket.id
-  acl    = "private"
-}
+#resource "aws_s3_bucket_acl" "mybucket_acl" {
+ # bucket = aws_s3_bucket.mybucket.id
+  #acl    = "private"
+#}
 
 resource "aws_s3_bucket_versioning" "mybucket" {
   bucket = aws_s3_bucket.mybucket.id
